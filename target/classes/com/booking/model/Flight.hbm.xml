@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+	<class name="com.booking.model.Flight" table="FLIGHT">
+		<!-- primary key column in Users table -->
+		<id name="id" type="int">
+			<column name="id"/>
+			<generator class="identity"/>
+		</id>
+		<property name="code" type="java.lang.String">
+			<column name="CODE"/>
+		</property>		
+		<property name="source" type="java.lang.String">
+			<column name="SOURCE"/>
+		</property>		
+		<property name="destination" type="java.lang.String">
+			<column name="DESTINATION"/>
+		</property>
+		<property name="airline" type="java.lang.String">
+			<column name="AIRLINE"/>
+		</property>
+		<property name="starttime" type="java.lang.String">
+			<column name="STARTTIME"/>
+		</property>
+		<property name="endtime" type="java.lang.String">
+			<column name="ENDTIME"/>
+		</property>
+		<property name="price" type="java.lang.String">
+			<column name="PRICE"/>
+		</property>
+		
+	</class>
+	
+
+</hibernate-mapping>

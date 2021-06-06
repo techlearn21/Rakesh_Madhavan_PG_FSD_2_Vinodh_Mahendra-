@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Home Page</title>
+</head>
+
+<body>
+
+	<div class="topnav">
+	  <a class="active" href="home.html">Home</a>
+	  <a href="login.html">Login</a>
+	  <a href="addflight.html">AddFlight</a>
+	  <a href="register.html">Register</a>
+	  <a href="admin-profile.html">Admin</a>
+	</div>
+
+	<h1 align="center"> HOME PAGE </h1>
+	<br/>
+	
+	<div align="center">
+		<form action="/booking-app/flight" method="post">
+				<p>Start from: <input type="text" name="source" required/></p>
+				<p>Destination: <input type="text" name="destination" required/></p>
+				<p>Adults <input type="number" min="0" max="6" step="1" name="adults" required/></p>
+				<p>Start Date: <input type="date" name="startdate" required/></p>
+				<p>Return Date: <input type="date" name="returndate" required/></p>
+					
+				<p>
+					<input type="submit" name="search" value="Search">
+					<input type="reset" name="reset" value="Clear">
+				</p>
+				
+		</form>
+	</div>
+
+
+</body>
+</html>
