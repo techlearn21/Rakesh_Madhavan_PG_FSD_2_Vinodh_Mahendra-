@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
 
-<title>Register</title>
+<title>Add Flight</title>
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -116,37 +116,36 @@ body {
 	
 	
 	<div class="signup-form">
-			<form action="/booking-app/register" method="post">
-				<h2>Register</h2>
-				<p class="hint-text">Create your account.</p>
+			<form action="/booking-app/flight" method="post">
+				<h2>Add flight</h2>
+				<p class="hint-text">Add details of new flight</p>
 		        <div class="form-group">
 					<div class="row">
-						<div class="col"><input type="text" class="form-control" name="firstname" placeholder="First Name" required="required"></div>
-						<div class="col"><input type="text" class="form-control" name="lastname" placeholder="Last Name" required="required"></div>
+						<div class="col"><input type="text" class="form-control" name="code" placeholder="Flight code" required="required"></div>
+						<div class="col"><input type="text" class="form-control" name="airline" placeholder="Airline" required="required"></div>
 					</div>        	
 		        </div>
 		        
 		        <div class="form-group">
-		        	<input type="email" class="form-control" name="email" placeholder="Email" required="required">
+					<div class="row">
+						<div class="col"><input type="text" class="form-control" name="source" placeholder="Start from" required="required"></div>
+						<div class="col"><input type="text" class="form-control" name="destination" placeholder="Destination" required="required"></div>
+					</div>        	
+		        </div>
+		        
+    		    <div class="form-group">
+					<div class="row">
+						<div class="col"><input type="time" class="form-control" name="starttime" placeholder="Start time" required="required"></div>
+						<div class="col"><input type="time" class="form-control" name="endtime" placeholder="End time" required="required"></div>
+						<div class="col"><input type="number" class="form-control" min="0" step="0.01" name="price" placeholder="Price" required="required"></div>
+					</div>        	
 		        </div>
 		        
 		        <div class="form-group">
-		            <input type="text" class="form-control" name="username" placeholder="Username" required="required">
-		        </div>
-		        
-		        <div class="form-group">
-		            <input type="password" class="form-control" name="password" placeholder="Password" required="required">
-		        </div>
-				<div class="form-group">
-		            <input type="password" class="form-control" name="password-confirm" placeholder="Confirm Password" required="required">
-		        </div>
-		        
-		        <div class="form-group">
-		            <button type="submit" class="btn btn-primary btn-block">Register</button>
-		        </div>
-		        
-		        <div class="form-group">
-		            <button type="reset" class="btn btn-secondary btn-block">Clear</button>
+					<div class="row">
+						<div class="col"><button type="submit" class="btn btn-primary btn-block">Save</button></div>
+						<div class="col"><button type="reset" class="btn btn-secondary btn-block">Clear</button></div>
+					</div>        	
 		        </div>
 				
 		</form>

@@ -14,9 +14,20 @@
 
 <style>
 	.login-form {
-	    width: 340px;
+	    width: 550px;
 	    margin: 50px auto;
 	  	font-size: 15px;
+	}
+	.login-form h2 {
+		color: #636363;
+		margin: 0 0 15px;
+		position: relative;
+		text-align: center;
+	}
+	.login-form .hint-text {
+		color: #999;
+		margin-bottom: 30px;
+		text-align: center;
 	}
 	.login-form form {
 	    margin-bottom: 15px;
@@ -54,6 +65,7 @@
 	<div class="login-form">
 			<form action="/booking-app/login" method="post">
 				<h2 class="text-center">Log in</h2>
+				<p class="hint-text">Log in to your account.</p>
 				<div class="form-group">
 		            <input type="text" class="form-control" placeholder="Username" name="username" required="required">
 		        </div>
