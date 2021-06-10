@@ -22,6 +22,9 @@ public class FlightServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		System.out.println("FlightServlet: doPost");
+		
 		String startPlace = request.getParameter("source");
 		String destination = request.getParameter("destination");
 		int numAdults = Integer.parseInt(request.getParameter("adults"));

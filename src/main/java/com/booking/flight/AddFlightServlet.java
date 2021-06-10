@@ -20,6 +20,7 @@ public class AddFlightServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String code = request.getParameter("code");
 		String source = request.getParameter("source");
 		String destination = request.getParameter("destination");
 		String airline = request.getParameter("airline");
@@ -32,6 +33,7 @@ public class AddFlightServlet extends HttpServlet {
 		response.setContentType("text/html");
 		
 		Flight flight = new Flight();
+		flight.setCode(code);
 		flight.setSource(source);
 		flight.setDestination(destination);
 		flight.setAirline(airline);

@@ -12,6 +12,9 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -52,10 +55,28 @@ public class AuthenticationFilter implements Filter {
 		System.out.println("retrievedUser: " + retrievedUser);
 		boolean check = userService.authenticateUser(newUser, retrievedUser);
 		
-		if(check) {			
+		HttpServletRequest servletRequest = (HttpServletRequest) request;
+		String url = servletRequest.getServletPath();
+		System.out.println("url is: " + url);
+		
+		HttpSession session = servletRequest.getSession(false);
+		String loggedInUser = "";
+		String loggedInFlag = "";
+		
+		if(session != null) {
+			loggedInUser = (String) session.getAttribute("loggedInUser");
+			loggedInFlag = (String) session.getAttribute("userAuth");
+		}
+		
+		System.out.println("loggedInUser: " + loggedInUser);
+		System.out.println("loggedInUser: " + loggedInFlag);
+		System.out.println("check: " + check);
+		
+		if(check || (!loggedInUser.equals("guest") && loggedInFlag.equals("true"))) {
 			chain.doFilter(request, response);
 		} else {
 			out.println("<h1>You are not authorized to view this page</h1>");
+			request.getRequestDispatcher("login.html").include(request, response);
 		}
 	}
 

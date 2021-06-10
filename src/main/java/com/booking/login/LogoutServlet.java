@@ -11,24 +11,27 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
-@WebServlet("/login")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/logout.html")
+public class LogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		String userName = request.getParameter("username");
+		String userName = (String) session.getAttribute("loggedInUser");
 		
-		session.setAttribute("loggedInUser", userName);
-		session.setAttribute("userAuth", "true");
+		session.setAttribute("loggedInUser", "guest");
+		session.setAttribute("userAuth", "false");
 		
-		System.out.println("LoginServlet: loggedInUser: " + session.getAttribute("loggedInUser") + ", userAuth: " + session.getAttribute("userAuth"));
+		session.invalidate();
 
 		PrintWriter out = response.getWriter();
 		response.setContentType("text/html");
-		out.println("<h3> Welcome " + userName + "</h3>");
+		out.println("<h3> Logged out " + userName + "</h3>");
 		
+		System.out.println("Servlet context: " + request.getServletContext().getContextPath());
+		
+		request.getRequestDispatcher("").forward(request, response);
 	}
 
 }
