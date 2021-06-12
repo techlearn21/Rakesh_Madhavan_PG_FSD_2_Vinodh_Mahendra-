@@ -1,7 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@page import="com.booking.model.Flight"%>
 <%@page import="java.util.*" %>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-
 
 <!DOCTYPE html>
 <html>
@@ -10,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
 
-<title>Flights</title>
+<title>Payment</title>
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -35,7 +34,7 @@ body {
 	border-radius: 3px;
 }
 .signup-form {
-	width: 650px;
+	width: 450px;
 	margin: 0 auto;
 	padding: 30px 0;
   	font-size: 15px;
@@ -70,6 +69,8 @@ body {
 	color: #999;
 	border-radius: 3px;
 	margin-bottom: 15px;
+	
+	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
 	padding: 30px;
 }
 .signup-form .form-group {
@@ -103,15 +104,14 @@ body {
 }	
 .signup-form form a:hover {
 	text-decoration: underline;
-} 
+}  
 </style>
-
 
 </head>
 
 <body>
-	
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
 	  <div class="collapse navbar-collapse" id="navbarNavDropdown">
 	    <ul class="navbar-nav">
 	      <li class="nav-item active">
@@ -150,87 +150,88 @@ body {
 	    </ul>
 	  </div>
 	</nav>
-	
-	
-	<!--  
-		<img class="w3-image" src="./../images/plane3.jpg" alt="The Airline" style="min-width:1000px" width="1800" height="500">
-	-->
-	
-	
-	<div class="signup-form">
-		
-			<h2>Results</h2>
-			<p class="hint-text">Select a flight to book</p>    	
-		
-	</div>
-		<!-- </form>  -->
-	
-	<form action="/booking-app/flight-summary" method="post">
-	<div class="container">
-	  <div class="row">
-	    <div class="col-12">
-	      <table class="table table-bordered">
-	        <thead>
-	          <tr>
-	            <th scope="col">Select Flight</th>
-	            <th scope="col">Airline</th>
-	            <th scope="col">From</th>
-	            <th scope="col">To</th>
-	            <th scope="col">Price Per Ticket</th>
-	          </tr>
-	        </thead>
-	        <tbody>	          
-	          	<%
-					List<Flight> searchResults = new ArrayList();
-					searchResults = (List<Flight>) request.getAttribute("searchResults");
-					if(searchResults !=null && searchResults.size() > 0) {
-						for (int i = 0; i < searchResults.size(); i++) {
-					
-				%>
-			        	<tr>
-				            <td>
-				              <div class="custom-control custom-radio custom-control-inline">
-				                  <input type="radio" class="custom-control-input"  name="flightradio" value=<%= searchResults.get(i).getCode() %> id=<%="customRadio" + i %>>
-				                  <label class="custom-control-label" for=<%= "customRadio"+ i %>><%= i + 1 %></label>
-				              </div>
-				            </td>
-				            <td><%= searchResults.get(i).getAirline() + "-" + searchResults.get(i).getCode() %></td>
-				            <td><%= searchResults.get(i).getSource() + " at " + searchResults.get(i).getStarttime() %></td>
-				            <td><%= searchResults.get(i).getDestination() + " at " + searchResults.get(i).getEndtime()%></td>
-				            <td><%= searchResults.get(i).getPrice() %></td>
-			            </tr>
-			     <%
-						}
-					} else {
-						System.out.println("No results retrieved");
-				 %>
-						<tr>
-			            <td>    -    </td>
-			            <td>    -    </td>
-			            <td>    -    </td>
-			            <td>    -    </td>
-			            <td>    -    </td>
-		            </tr>
-		         <%
-					}
-			     %>
-			  
-	        </tbody>
-	      </table>
-	    </div>
-	  </div>
-	  
 
-	  <div class="form-group">
-			<div class="row">
-				<div class="col"></div>
-				<div class="col"><button type="submit" class="btn btn-primary btn-block">Book</button></div>
-				<div class="col"></div>
-			</div>        	
-        </div>
-	  
+		<div class="signup-form">
+			<form action="/booking-app/flight-confirmation.jsp" method="get">
+				<h2>Payment</h2>
+				<p class="hint-text">Pay using your card</p>
+		        
+    		    <div class="form-group">
+					<div class="row">
+						<div class="col"><h5><span class="label label-default">Card Holder's name</span></h5></div>
+					</div>
+					<div class="row">
+						<div class="col"><input type="text" class="form-control" name="name" required="required"></div>
+					</div>
+		        </div>
+		        
+		        <div class="form-group">
+					<div class="row">
+						<div class="col"><h5><span class="label label-default">Card Number</span></h5></div>
+					</div>
+					<div class="row">
+						<div class="col"><input type="number" class="form-control" name="number" required="required"></div>
+					</div>        	
+		        </div>
+		        
+		        <div class="form-group">
+					<div class="row">
+						<div class="col"><h5><span class="label label-default">Expiration</span></h5></div>
+					</div>     
+					<div class="row">
+						<div class="col">
+							<select class="form-control" name="expiry_month" id="expiry_month">
+				                <option></option>
+				                <option value="01">Jan (01)</option>
+				                <option value="02">Feb (02)</option>
+				                <option value="03">Mar (03)</option>
+				                <option value="04">Apr (04)</option>
+				                <option value="05">May (05)</option>
+				                <option value="06">June (06)</option>
+				                <option value="07">July (07)</option>
+				                <option value="08">Aug (08)</option>
+				                <option value="09">Sep (09)</option>
+				                <option value="10">Oct (10)</option>
+				                <option value="11">Nov (11)</option>
+				                <option value="12">Dec (12)</option>
+				              </select>
+						</div>
+						<div class="col">
+							<select class="form-control" name="expiry_year">
+				                <option value="21">2021</option>
+				                <option value="22">2022</option>
+				                <option value="23">2023</option>
+				                <option value="24">2024</option>
+				                <option value="25">2025</option>
+				                <option value="26">2026</option>
+				                <option value="27">2027</option>
+				              </select>
+						</div>
+					</div>   	
+		        </div>
+		        
+		        <div class="form-group">
+					<div class="row">
+						<div class="col"><h5><span class="label label-default">CVV</span></h5></div>
+					</div> 
+					<div class="row">
+						<div class="col"><input type="number" class="form-control" name="cvv" required="required"></div>
+					</div>
+					<input type="text" name="flightCode" value="<%= request.getParameter("flightCode") %>" />
+		        </div>
+		        
+		        <% System.out.println("flightCode getParameter: " + request.getParameter("flightCode")); %>
+		        
+		        <div class="form-group">
+					<div class="row">
+						<div class="col"></div>
+						<div class="col"><button type="submit" class="btn btn-primary btn-block">Pay Now</button></div>
+						<div class="col"></div>
+					</div>        	
+		        </div>
+				
+		</form>
 	</div>
-	</form>
 
 </body>
 </html>

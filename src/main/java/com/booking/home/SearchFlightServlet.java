@@ -22,14 +22,16 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
 import com.booking.model.Flight;
+import com.booking.model.SearchFlightRequest;
 import com.booking.model.User;
+import com.booking.service.FlightService;
 import com.booking.utils.HibernateUtils;
 
 /**
  * Servlet implementation class FlightServlet
  */
-@WebServlet("/flight")
-public class FlightServlet extends HttpServlet {
+@WebServlet("/search")
+public class SearchFlightServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -63,40 +65,17 @@ public class FlightServlet extends HttpServlet {
 		searchRequest.setReturnDate(returnDate);
 		
 		System.out.println("FlightServlet: going to call getFlights. " + searchRequest.toString());
-		List<Flight> results = getFlights(searchRequest);
+		
+		FlightService flightService = new FlightService();
+		List<Flight> results = flightService.getFlights(searchRequest);
+		
 		request.setAttribute("searchResults", results);
 		
 		System.out.println("Going to redirect to flight-search-result.jsp");
 		
 	    request.getRequestDispatcher("flight-search-result.jsp").include(request, response);
 	    
-		System.out.println("redirect to flight-search-result.jsp COMPLETED");
-
-	        
+		System.out.println("redirect to flight-search-result.jsp COMPLETED");        
 	}
 	
-	private List<Flight> getFlights(SearchFlightRequest request) {
-		List<Flight> results = new ArrayList<Flight>();
-		
-		Session session = HibernateUtils.getSessionFactory().openSession();
-		System.out.println("Opensession done");
-		session.beginTransaction();
-		System.out.println("beginTransaction done");
-		System.out.println("Going to retrieve results based on object: " + request.toString());
-		Criteria criteria = session.createCriteria(Flight.class)
-				.add(Restrictions.eq("source", request.getStartFrom()))
-				.add(Restrictions.eq("destination", request.getDestination()));
-		results = criteria.list();
-		System.out.println("Results Retrieved");
-		session.close();
-		
-		if(results.isEmpty()) {
-			System.out.println("No results retrieved");;
-		}
-		
-		System.out.println("Search result: " + results);
-		
-		return results;
-	}
-
 }
