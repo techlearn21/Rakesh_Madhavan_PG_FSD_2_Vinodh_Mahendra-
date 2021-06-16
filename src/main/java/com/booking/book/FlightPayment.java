@@ -21,22 +21,20 @@ import com.booking.service.FlightService;
 import com.booking.utils.HibernateUtils;
 
 
-@WebServlet("/flight-summary")
-public class FlightSummary extends HttpServlet {
+@WebServlet("/flight-payment")
+public class FlightPayment extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String[] selectedValues = request.getParameterValues("flightradio");
-		String code = selectedValues[0];
+		String code = request.getParameter("flightCode");
 		FlightService flightService = new FlightService();
 		Flight retrievedFlight = flightService.getFlight(code);
 		
 		request.setAttribute("selectedFlight", retrievedFlight);
-		request.getSession().setAttribute(code, selectedValues);
 		
-		request.getRequestDispatcher("flight-summary.jsp").forward(request, response);
+		request.getRequestDispatcher("flight-payment.jsp").forward(request, response);
 		
 		
 	}

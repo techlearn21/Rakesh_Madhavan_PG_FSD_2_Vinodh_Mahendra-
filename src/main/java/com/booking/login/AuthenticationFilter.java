@@ -23,12 +23,13 @@ import org.hibernate.criterion.Restrictions;
 import com.booking.model.LoginUser;
 import com.booking.model.User;
 import com.booking.service.UserService;
+import com.booking.utils.FlightConstants;
 import com.booking.utils.HibernateUtils;
 
 /**
  * Servlet Filter implementation class AuthenticationFilter
  */
-@WebFilter("/login")
+//@WebFilter("/login")
 public class AuthenticationFilter implements Filter {
 
 	public void destroy() {
@@ -39,65 +40,60 @@ public class AuthenticationFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) 
 			throws IOException, ServletException {
 		
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
+//		HttpServletRequest servletRequest = (HttpServletRequest) request;
+//		HttpServletResponse servletResponse = (HttpServletResponse) response;
+//		String url = servletRequest.getServletPath();
+//		System.out.println("url is: " + url);
+//		
+//		HttpSession session = servletRequest.getSession(false);
+//		String loggedInUser = "intialized";
+//		String loggedInFlag = "intialized";
+//		String loggedInType = "intialized";
+//		
+//		try {
+//		
+//		if(session != null) {
+//			loggedInUser = (String) session.getAttribute("loggedInUser");
+//			loggedInFlag = (String) session.getAttribute("userAuth");
+//			loggedInType = (String) session.getAttribute("userType");
+//			
+//			if(loggedInFlag.equals("normal") && loggedInType.equals(FlightConstants.STATUS_VERIFIED)) {
+//				System.out.println("AuthenticationFilter: loading normal menu");
+//				request.getRequestDispatcher("nav-logged-normal.jsp").include(request, response);
+//			} else if(loggedInFlag.equals("admin") && loggedInType.equals(FlightConstants.STATUS_VERIFIED)) {
+//				System.out.println("AuthenticationFilter: loading admin menu");
+//				request.getRequestDispatcher("nav-logged-admin.jsp").include(request, response);
+//			} else {
+//				System.out.println("AuthenticationFilter: loading guest menu");
+//				request.getRequestDispatcher("nav-not-logged.jsp").include(request, response);
+//			}
+//		} else {
+//			System.out.println("AuthenticationFilter: loading guest menu");
+//			request.getRequestDispatcher("nav-not-logged.jsp").include(request, response);
+//		}
+//		} catch (Exception ex) {
+//			System.out.println("AuthenticationFilter: Exception : " + ex.getMessage());
+//			System.out.println("AuthenticationFilter: loading guest menu");
+//			
+//			UserService.initializeSessionVariables(session, servletRequest, servletResponse);
+//			request.getRequestDispatcher("nav-not-logged.jsp").include(request, response);
+//			
+//		}
+//		
+//		request.getRequestDispatcher("login.jsp").include(request, response);
+//
+//		
+//		System.out.println("AuthenticationFilter: loggedInUser: " + loggedInUser);
+//		System.out.println("AuthenticationFilter: loggedInFlag: " + loggedInFlag);
+//		System.out.println("AuthenticationFilter: loggedInType: " + loggedInType);
 		
-		LoginUser newUser = new LoginUser();
-		newUser.setUserName(username);	
-		newUser.setPassword(password);
-		newUser.setUserType("normal");
-		
-		PrintWriter out = response.getWriter();
-		
-		UserService userService = new UserService();
-		
-		User retrievedUser = retrieveUser(newUser.getUserName());
-		System.out.println("retrievedUser: " + retrievedUser);
-		boolean check = userService.authenticateUser(newUser, retrievedUser);
-		
-		HttpServletRequest servletRequest = (HttpServletRequest) request;
-		String url = servletRequest.getServletPath();
-		System.out.println("url is: " + url);
-		
-		HttpSession session = servletRequest.getSession(false);
-		String loggedInUser = "";
-		String loggedInFlag = "";
-		
-		if(session != null) {
-			loggedInUser = (String) session.getAttribute("loggedInUser");
-			loggedInFlag = (String) session.getAttribute("userAuth");
-		}
-		
-		System.out.println("loggedInUser: " + loggedInUser);
-		System.out.println("loggedInUser: " + loggedInFlag);
-		System.out.println("check: " + check);
-		
-		if(check || (!loggedInUser.equals("guest") && loggedInFlag.equals("true"))) {
-			chain.doFilter(request, response);
-		} else {
-			out.println("<h1>You are not authorized to view this page</h1>");
-			request.getRequestDispatcher("login.html").include(request, response);
-		}
 	}
 
-	public void init(FilterConfig fConfig) throws ServletException {
+
+	@Override
+	public void init(FilterConfig filterConfig) throws ServletException {
 		// TODO Auto-generated method stub
-	}
-	
-	private User retrieveUser(String username) {
-		User retrievedUser = new User();
 		
-		Session session = HibernateUtils.getSessionFactory().openSession();
-		session.beginTransaction();
-		Criteria criteria = session.createCriteria(User.class);
-		criteria.add(Restrictions.eq("userName", username));
-		List<User> users = criteria.list();
-		if(users.isEmpty()) {
-			return retrievedUser;
-		}
-		session.close();
-		
-		return users.get(0);
 	}
 
 }

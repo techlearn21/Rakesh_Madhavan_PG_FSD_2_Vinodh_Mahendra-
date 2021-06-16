@@ -1,3 +1,4 @@
+<%@page import="org.apache.commons.lang3.RandomStringUtils"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@page import="com.booking.model.Flight"%>
 <%@page import="java.util.*" %>
@@ -124,7 +125,6 @@ body {
 	        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	          <a class="dropdown-item" href="profile.html">Profile</a>
 	          <a class="dropdown-item" href="logout.html">Logout</a>
-	          <a class="dropdown-item" href="#">Something else here</a>
 	        </div>
 	      </li>
 	      <li class="nav-item dropdown">
@@ -134,7 +134,6 @@ body {
 	        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	          <a class="dropdown-item" href="register.html">Register</a>
 	          <a class="dropdown-item" href="login.html">Login</a>
-	          <a class="dropdown-item" href="#">Something else here</a>
 	        </div>
 	      </li>
 	      <li class="nav-item dropdown">
@@ -144,7 +143,6 @@ body {
 	        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	          <a class="dropdown-item" href="addflight.html">Add Flight</a>
 	          <a class="dropdown-item" href="admin-profile.html">Reset Admin Password</a>
-	          <a class="dropdown-item" href="#">Something else here</a>
 	        </div>
 	      </li>
 	    </ul>
@@ -153,21 +151,31 @@ body {
 
 
 				<%
-					System.out.println("In flight-summary.jsp. flightCode: " + request.getParameter("flightCode"));
-					String flightCode = (String) request.getParameter("flightCode");
-					System.out.println("code: " + flightCode);
+					System.out.println("In flight-confirmation.jsp");
+					Flight flight = (Flight) request.getAttribute("selectedFlight");
+					System.out.println("code: " + flight.getCode());
+					System.out.println("flight record: " + flight);
+					String ticketNumber = RandomStringUtils.randomAlphanumeric(10);
 				%>
 				
 
 		<div class="signup-form">
-			<form>
+			<form action="/booking-app" method="post">
 				<h2>Confirmation</h2>
 				<p class="hint-text">Confirmation of ticket booked</p>
+		        
+		        <div class="form-group">
+					<div class="row">
+						<div class="col"><h4><span class="label label-default">
+							Ticker Number: <%= ticketNumber %>
+						</span></h4></div>
+					</div>
+		        </div>
 		        
     		    <div class="form-group">
 					<div class="row">
 						<div class="col"><h4><span class="label label-default">
-							<%= "Airline" + " - " + "Code" %>
+							Flight: <%= flight.getAirline() + " - " + flight.getCode() %>
 						</span></h4></div>
 					</div>
 		        </div>
@@ -175,7 +183,7 @@ body {
 		        <div class="form-group">
 					<div class="row">
 						<div class="col"><h4><span class="label label-default">
-							From <%= "Source" + " to " + "Destination" %>
+							From <%= flight.getSource() + " to " + flight.getDestination() %>
 						</span></h4></div>
 					</div>        	
 		        </div>
@@ -183,7 +191,7 @@ body {
 		        <div class="form-group">
 					<div class="row">
 						<div class="col"><h4><span class="label label-default">
-							From <%= "Starttime" + " to " + "End time" %>
+							Departs at <%= flight.getStarttime() + ". Lands at " + flight.getEndtime() %>
 						</span></h4></div>
 					</div>        	
 		        </div>
@@ -191,10 +199,18 @@ body {
 		        <div class="form-group">
 					<div class="row">
 						<div class="col"><h4><span class="label label-default">
-							Total: $<%=  "Price" %>
+							Total: $<%= flight.getPrice() %>
 						</span></h4></div>
 					</div>
-					<input type="text" name="flightCode" value="<%= request.getParameter("flightCode") %>" />
+					<input type="hidden" name="flightCode" value="<%= request.getParameter("flightCode") %>" />
+		        </div>
+		        
+		        <div class="form-group">
+					<div class="row">
+						<div class="col"></div>
+						<div class="col"><button type="submit" class="btn btn-primary btn-block">Home</button></div>
+						<div class="col"></div>
+					</div>        	
 		        </div>
 		        
 				

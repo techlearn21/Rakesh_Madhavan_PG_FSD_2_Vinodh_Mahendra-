@@ -1,4 +1,4 @@
-package com.booking.flight;
+package com.booking.admin;
 
 import java.io.IOException;
 import java.io.PrintWriter;

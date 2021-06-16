@@ -124,7 +124,6 @@ body {
 	        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	          <a class="dropdown-item" href="profile.html">Profile</a>
 	          <a class="dropdown-item" href="logout.html">Logout</a>
-	          <a class="dropdown-item" href="#">Something else here</a>
 	        </div>
 	      </li>
 	      <li class="nav-item dropdown">
@@ -134,7 +133,6 @@ body {
 	        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	          <a class="dropdown-item" href="register.html">Register</a>
 	          <a class="dropdown-item" href="login.html">Login</a>
-	          <a class="dropdown-item" href="#">Something else here</a>
 	        </div>
 	      </li>
 	      <li class="nav-item dropdown">
@@ -144,7 +142,6 @@ body {
 	        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	          <a class="dropdown-item" href="addflight.html">Add Flight</a>
 	          <a class="dropdown-item" href="admin-profile.html">Reset Admin Password</a>
-	          <a class="dropdown-item" href="#">Something else here</a>
 	        </div>
 	      </li>
 	    </ul>
@@ -152,7 +149,7 @@ body {
 	</nav>
 
 		<div class="signup-form">
-			<form action="/booking-app/flight-confirmation.jsp" method="get">
+			<form action="/booking-app/flight-confirmation" method="post">
 				<h2>Payment</h2>
 				<p class="hint-text">Pay using your card</p>
 		        
@@ -217,7 +214,7 @@ body {
 					<div class="row">
 						<div class="col"><input type="number" class="form-control" name="cvv" required="required"></div>
 					</div>
-					<input type="text" name="flightCode" value="<%= request.getParameter("flightCode") %>" />
+					<input type="hidden" name="flightCode" value="<%= request.getParameter("flightCode") %>" />
 		        </div>
 		        
 		        <% System.out.println("flightCode getParameter: " + request.getParameter("flightCode")); %>

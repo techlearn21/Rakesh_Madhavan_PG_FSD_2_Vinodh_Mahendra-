@@ -124,7 +124,6 @@ body {
 	        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	          <a class="dropdown-item" href="profile.html">Profile</a>
 	          <a class="dropdown-item" href="logout.html">Logout</a>
-	          <a class="dropdown-item" href="#">Something else here</a>
 	        </div>
 	      </li>
 	      <li class="nav-item dropdown">
@@ -134,7 +133,6 @@ body {
 	        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	          <a class="dropdown-item" href="register.html">Register</a>
 	          <a class="dropdown-item" href="login.html">Login</a>
-	          <a class="dropdown-item" href="#">Something else here</a>
 	        </div>
 	      </li>
 	      <li class="nav-item dropdown">
@@ -144,7 +142,6 @@ body {
 	        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	          <a class="dropdown-item" href="addflight.html">Add Flight</a>
 	          <a class="dropdown-item" href="admin-profile.html">Reset Admin Password</a>
-	          <a class="dropdown-item" href="#">Something else here</a>
 	        </div>
 	      </li>
 	    </ul>
@@ -161,7 +158,7 @@ body {
 				
 
 		<div class="signup-form">
-			<form action="/booking-app/flight-payment.jsp" method="get">
+			<form action="/booking-app/flight-payment" method="post">
 				<h2>Summary</h2>
 				<p class="hint-text">Summary of selected flight</p>
 		        
@@ -184,7 +181,7 @@ body {
 		        <div class="form-group">
 					<div class="row">
 						<div class="col"><h4><span class="label label-default">
-							From <%= flight.getStarttime() + " to " + flight.getEndtime() %>
+							Departs at <%= flight.getStarttime() + ". Lands at " + flight.getEndtime() %>
 						</span></h4></div>
 					</div>        	
 		        </div>
@@ -194,7 +191,7 @@ body {
 						<div class="col"><h4><span class="label label-default">
 							Total: $<%= flight.getPrice() %>
 						</span></h4></div>
-						<input type="text" name="flightCode" value="<%= flight.getCode() %>" />
+						<input type="hidden" name="flightCode" value="<%= flight.getCode() %>" />
 					</div>        	
 		        </div>
 		        

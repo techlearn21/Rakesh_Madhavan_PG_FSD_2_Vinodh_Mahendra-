@@ -124,7 +124,6 @@ body {
 	        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	          <a class="dropdown-item" href="profile.html">Profile</a>
 	          <a class="dropdown-item" href="logout.html">Logout</a>
-	          <a class="dropdown-item" href="#">Something else here</a>
 	        </div>
 	      </li>
 	      <li class="nav-item dropdown">
@@ -134,7 +133,6 @@ body {
 	        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	          <a class="dropdown-item" href="register.html">Register</a>
 	          <a class="dropdown-item" href="login.html">Login</a>
-	          <a class="dropdown-item" href="#">Something else here</a>
 	        </div>
 	      </li>
 	      <li class="nav-item dropdown">
@@ -144,7 +142,6 @@ body {
 	        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	          <a class="dropdown-item" href="addflight.html">Add Flight</a>
 	          <a class="dropdown-item" href="admin-profile.html">Reset Admin Password</a>
-	          <a class="dropdown-item" href="#">Something else here</a>
 	        </div>
 	      </li>
 	    </ul>

@@ -15,8 +15,8 @@ import com.booking.service.UserService;
 /**
  * Servlet implementation class AdminServlet
  */
-@WebServlet("/admin")
-public class AdminServlet extends HttpServlet {
+@WebServlet("/admin-password")
+public class AdminPwdChangeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 

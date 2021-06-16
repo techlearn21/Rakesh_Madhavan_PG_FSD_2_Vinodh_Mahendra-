@@ -64,7 +64,6 @@
 	        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	          <a class="dropdown-item" href="profile.html">Profile</a>
 	          <a class="dropdown-item" href="logout.html">Logout</a>
-	          <a class="dropdown-item" href="#">Something else here</a>
 	        </div>
 	      </li>
 	      <li class="nav-item dropdown">
@@ -74,7 +73,6 @@
 	        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	          <a class="dropdown-item" href="register.html">Register</a>
 	          <a class="dropdown-item" href="login.html">Login</a>
-	          <a class="dropdown-item" href="#">Something else here</a>
 	        </div>
 	      </li>
 	      <li class="nav-item dropdown">
@@ -84,7 +82,6 @@
 	        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	          <a class="dropdown-item" href="addflight.html">Add Flight</a>
 	          <a class="dropdown-item" href="admin-profile.html">Reset Admin Password</a>
-	          <a class="dropdown-item" href="#">Something else here</a>
 	        </div>
 	      </li>
 	    </ul>
@@ -94,14 +91,17 @@
 	
 
 	<div class="login-form">
-			<form action="/booking-app/home.html" method="get">
-				<h2 class="text-center">Logged out</h2>
-				<p class="hint-text">Logged out from your account.</p>
-				<div class="form-group">
-					<label>Logged out ..... </label>
-		        </div>
+			<form action="/booking-app/logout" method="post">
+				<h2 class="text-center">Log out</h2>
+				<p class="hint-text">Log out from your account.</p>
 		        <div class="form-group">
+		        	<div class="row">
+		            	<div class="col"></div>
+		            	<div class="col"><button type="submit" class="btn btn-primary btn-block">Logout</button></div>
+		            	<div class="col"></div>
+	            	</div>
 		        </div>
+				
 		</form>
 	</div>
 
