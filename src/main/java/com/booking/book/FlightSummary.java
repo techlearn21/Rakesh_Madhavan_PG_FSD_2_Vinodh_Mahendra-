@@ -39,6 +39,7 @@ public class FlightSummary extends HttpServlet {
 		request.getSession().setAttribute(code, selectedValues);
 		
 		HttpSession session = request.getSession();
+		session.setAttribute("selectedFlight", retrievedFlight);
 		
 		UserService.setMenu(session, request, response);
 		request.getRequestDispatcher("flight-summary.jsp").include(request, response);

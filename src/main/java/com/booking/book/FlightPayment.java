@@ -36,7 +36,10 @@ public class FlightPayment extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		session.setAttribute("selectedFlight", retrievedFlight);
+		session.setAttribute("flightCode", retrievedFlight.getCode());
 		request.setAttribute("selectedFlight", retrievedFlight);
+		request.setAttribute("flightCode", retrievedFlight.getCode());
+		
 		UserService.setMenu(session, request, response);
 		request.getRequestDispatcher("flight-payment.jsp").include(request, response);
 	}

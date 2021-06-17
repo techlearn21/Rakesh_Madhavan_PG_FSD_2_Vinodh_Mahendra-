@@ -37,9 +37,7 @@ public class SearchFlightServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		System.out.println("SearchFlightServlet: doPost");
-		
+				
 		String startPlace = request.getParameter("source");
 		String destination = request.getParameter("destination");
 		int numAdults = Integer.parseInt(request.getParameter("adults"));
@@ -54,7 +52,6 @@ public class SearchFlightServlet extends HttpServlet {
 			startDate = format.parse(request.getParameter("startdate"));
 			returnDate = format.parse(request.getParameter("returndate"));
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

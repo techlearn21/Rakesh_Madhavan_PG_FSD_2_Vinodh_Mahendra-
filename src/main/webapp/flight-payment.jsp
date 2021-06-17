@@ -179,9 +179,7 @@ body {
 					</div>
 					<input type="hidden" name="flightCode" value="<%= request.getParameter("flightCode") %>" />
 		        </div>
-		        
-		        <% System.out.println("flightCode getParameter: " + request.getParameter("flightCode")); %>
-		        
+		        		        
 		        <div class="form-group">
 					<div class="row">
 						<div class="col"></div>

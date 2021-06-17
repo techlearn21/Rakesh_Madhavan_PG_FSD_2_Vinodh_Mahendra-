@@ -29,12 +29,19 @@ public class FlightConfirmation extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String code = request.getParameter("flightCode");
-		FlightService flightService = new FlightService();
-		Flight retrievedFlight = flightService.getFlight(code);
-		
 		HttpSession session = request.getSession();
+
+		String code = (String) session.getAttribute("flightCode");
+		Flight flight = (Flight) session.getAttribute("selectedFlight");
+		
+		FlightService flightService = new FlightService();
+		Flight retrievedFlight = new Flight();
+		if(code != null ) {
+			retrievedFlight = flightService.getFlight(code);
+		} else {
+			retrievedFlight = (Flight) session.getAttribute("retrievedFlight");
+		}
+		
 		session.setAttribute("selectedFlight", retrievedFlight);
 		request.setAttribute("selectedFlight", retrievedFlight);	
 		UserService.setMenu(session, request, response);

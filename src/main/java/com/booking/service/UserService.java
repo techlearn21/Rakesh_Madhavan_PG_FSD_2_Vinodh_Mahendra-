@@ -34,14 +34,7 @@ public class UserService {
 	public boolean authenticateAdmin(LoginUser user) {
 		boolean result = user.getUserName().equals(adminUser) && 
 				user.getPassword().equals(adminPassword) &&
-				user.getUserType().equals("admin");
-		
-		System.out.println("authenticateAdmin() - user: " + user.getUserName() 
-		+ ", password: " + user.getPassword()
-		+ ", userType: " + user.getUserType()
-		+ ", result: " + result
-		);
-		
+				user.getUserType().equals("admin");		
 		return result;
 	}
 	
@@ -50,35 +43,17 @@ public class UserService {
 				user.getPassword().equals(normalPassword) &&
 				user.getUserType().equals("normal");
 		
-		System.out.println("authenticateUser() - user: " + user.getUserName() 
-		+ ", password: " + user.getPassword()
-		+ ", userType: " + user.getUserType()
-		+ ", result: " + result
-		);
-		
 		return result;
 	}
 	
 	public boolean authenticateUser(LoginUser user, User retrievedUser) {
 		boolean result = user.getUserName().equals(retrievedUser.getUserName()) && 
 				user.getPassword().equals(retrievedUser.getPassword());
-		
-		System.out.println("authenticateUser() - user: " + user.getUserName() 
-		+ ", password: " + user.getPassword()
-		+ ", userType: " + user.getUserType()
-		+ ", result: " + result
-		);
-		
 		return result;
 	}
 	
 	public boolean comparePasswords(String pwd1, String pwd2) {
 		boolean result = pwd1.equals(pwd2);
-		
-		System.out.println("checkNewAdminPassword() - pwd1: " + pwd1 
-		+ ", pwd2: " + pwd2
-		+ ", result: " + result
-		);
 		
 		return result;
 	}
@@ -178,18 +153,13 @@ public class UserService {
 			loggedInType = (String) session.getAttribute("userType");
 						
 			if(loggedInFlag.equals(FlightConstants.STATUS_VERIFIED) && loggedInType.equals(FlightConstants.USER_NORMAL)) {
-				System.out.println("LoginServlet: loggedInUser: " + loggedInUser);
-				System.out.println("LoginServlet: loading normal menu");
 				request.getRequestDispatcher("nav-logged-normal.jsp").include(request, response);
 			} else if(loggedInFlag.equals(FlightConstants.STATUS_VERIFIED) && loggedInType.equals(FlightConstants.USER_ADMIN)) {
-				System.out.println("LoginServlet: loading adminl menu");
 				request.getRequestDispatcher("nav-logged-admin.jsp").include(request, response);
 			} else {
-				System.out.println("LoginServlet: loading guest menu");
 				request.getRequestDispatcher("nav-not-logged.jsp").include(request, response);
 			}
 		} else {
-			System.out.println("Session is null");
 			request.getRequestDispatcher("nav-not-logged.jsp").include(request, response);
 		}
 	}
@@ -205,6 +175,27 @@ public class UserService {
 			boolean userCheck = loggedInUser.equals("admin");
 			boolean userAuthCheck = userAuth.equals(FlightConstants.STATUS_VERIFIED);
 			boolean userTypeCheck = userType.equals(FlightConstants.USER_ADMIN);
+			
+			if (userCheck && userAuthCheck && userTypeCheck) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+	
+	public static boolean isNormalUserLoggedIn(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+		
+		String loggedInUser = (String) session.getAttribute("loggedInUser");
+		String userAuth = (String) session.getAttribute("userAuth");
+		String userType = (String) session.getAttribute("userType");
+		
+		if ((loggedInUser != null) && (loggedInUser != null) && (loggedInUser != null)) {
+			boolean userCheck = !loggedInUser.equals("guest");
+			boolean userAuthCheck = userAuth.equals(FlightConstants.STATUS_VERIFIED);
+			boolean userTypeCheck = userType.equals(FlightConstants.USER_NORMAL);
 			
 			if (userCheck && userAuthCheck && userTypeCheck) {
 				return true;

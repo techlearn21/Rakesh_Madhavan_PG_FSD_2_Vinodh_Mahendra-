@@ -31,15 +31,11 @@ public class CookieUtil {
 	}
 	
 	public static HttpServletResponse setValue(HttpServletRequest request, HttpServletResponse response, String cookieName, String newValue) {
-		Cookie cookie = getCookie(request, cookieName);
-		System.out.println("is new cookie null? " + (cookie == null));
-		
+		Cookie cookie = getCookie(request, cookieName);	
 		if( cookie != null) {
-			System.out.println("Going to set new cookie value: ");
 			cookie.setValue(newValue);
 			response.addCookie(cookie);
 		} else {
-			System.out.println("Going to create a new cookie object: ");
 			cookie = new Cookie(cookieName, newValue);
 			response.addCookie(cookie);
 		}
