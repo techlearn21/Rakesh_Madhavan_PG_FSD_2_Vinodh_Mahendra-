@@ -21,8 +21,8 @@ import com.booking.service.FlightService;
 import com.booking.service.UserService;
 
 
-@WebServlet("")
-public class HomeServlet extends HttpServlet {
+@WebServlet("/home")
+public class HomeServletFromMenu extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -30,17 +30,10 @@ public class HomeServlet extends HttpServlet {
 		System.out.println("url is: " + url);
 		HttpSession session = request.getSession();
 		
-
-		FlightService flightService = new FlightService();
-		
-		List<Airline> airlines = flightService.getAllAirlines();
-		request.setAttribute("allAirlines", airlines);
-			
-		List<Airport> airports = flightService.getAllAirports();
-		request.setAttribute("allAirports", airports);
-		
 		UserService.initializeSessionVariables(session, request, response);
+		
 		UserService.setMenu(session, request, response);
-		request.getRequestDispatcher("home.jsp").include(request, response);
+		request.getRequestDispatcher("").include(request, response);
+
 	}
 }

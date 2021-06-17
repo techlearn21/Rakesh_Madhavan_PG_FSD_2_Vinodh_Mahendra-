@@ -1,8 +1,16 @@
 package com.booking.model;
 
 public class Airline {
+	private int id;
 	private String code;
 	private String name;
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	
 	public String getCode() {
 		return code;
@@ -19,7 +27,7 @@ public class Airline {
 	
 	@Override
 	public String toString() {
-		return String.format("Airline [code=%s, name=%s]", code, name);
+		return String.format("Airline [id=%s, code=%s, name=%s]", id, code, name);
 	}
 	
 }

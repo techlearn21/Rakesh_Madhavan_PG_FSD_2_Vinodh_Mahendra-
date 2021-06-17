@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.hibernate.Session;
 
@@ -55,7 +56,11 @@ public class RegisterServlet extends HttpServlet {
 		session.getTransaction().commit();
 		session.close();
 		
-		out.println("<h3>User registration successful</h3>");
+		
+		HttpSession httpSession = request.getSession();
+		UserService.setMenu(httpSession, request, response);
+		out.println("<h6 align='center'>User registration successful. Please login with your credentials</h6>");
+		request.getRequestDispatcher("login.jsp").include(request, response);
 	}
 	
 	public void destroy() {

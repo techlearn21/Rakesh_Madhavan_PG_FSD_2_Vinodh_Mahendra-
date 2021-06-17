@@ -93,7 +93,7 @@ public class UserService {
 		return updated;
 	}
 	
-	private User getUser(String userName) {
+	public User getUser(String userName) {
 		User retrievedUser = new User();
 		
 		Session session = HibernateUtils.getSessionFactory().openSession();
@@ -133,15 +133,23 @@ public class UserService {
 		CookieUtil.setValue(request, response, "userType", validatedUser.getUserType());
 	}
 	
-public static void initializeSessionVariables(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+	public static void initializeSessionVariables(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
 		
-		session.setAttribute("loggedInUser", "guest");
-		session.setAttribute("userAuth", FlightConstants.STATUS_UNVERIFIED);
-		session.setAttribute("userType", FlightConstants.USER_UNAUTHORIZED);
+		if(session.getAttribute("loggedInUser") == null) {
+			session.setAttribute("loggedInUser", "guest");
+			CookieUtil.setValue(request, response, "loggedInUser", "guest");
+		}
 		
-		CookieUtil.setValue(request, response, "loggedInUser", "guest");
-		CookieUtil.setValue(request, response, "userAuth", FlightConstants.STATUS_UNVERIFIED);
-		CookieUtil.setValue(request, response, "userType", FlightConstants.USER_UNAUTHORIZED);
+		if(session.getAttribute("userAuth") == null) {
+			session.setAttribute("userAuth", FlightConstants.STATUS_UNVERIFIED);
+			CookieUtil.setValue(request, response, "userAuth", FlightConstants.STATUS_UNVERIFIED);
+		}
+		
+		if(session.getAttribute("userType") == null) {
+			session.setAttribute("userType", FlightConstants.USER_UNAUTHORIZED);
+			CookieUtil.setValue(request, response, "userType", FlightConstants.USER_UNAUTHORIZED);
+		}
+				
 	}
 	
 	public static void clearSessionVariables(HttpSession session, HttpServletRequest request, HttpServletResponse response, LoginUser validatedUser) {
@@ -182,6 +190,29 @@ public static void initializeSessionVariables(HttpSession session, HttpServletRe
 			}
 		} else {
 			System.out.println("Session is null");
+			request.getRequestDispatcher("nav-not-logged.jsp").include(request, response);
+		}
+	}
+	
+	
+	public static boolean isAdmin(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+		
+		String loggedInUser = (String) session.getAttribute("loggedInUser");
+		String userAuth = (String) session.getAttribute("userAuth");
+		String userType = (String) session.getAttribute("userType");
+		
+		if ((loggedInUser != null) && (loggedInUser != null) && (loggedInUser != null)) {
+			boolean userCheck = loggedInUser.equals("admin");
+			boolean userAuthCheck = userAuth.equals(FlightConstants.STATUS_VERIFIED);
+			boolean userTypeCheck = userType.equals(FlightConstants.USER_ADMIN);
+			
+			if (userCheck && userAuthCheck && userTypeCheck) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
 		}
 	}
 

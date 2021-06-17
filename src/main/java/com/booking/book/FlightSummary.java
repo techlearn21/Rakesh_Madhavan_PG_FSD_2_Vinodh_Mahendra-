@@ -11,6 +11,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -18,6 +19,7 @@ import org.hibernate.criterion.Restrictions;
 
 import com.booking.model.Flight;
 import com.booking.service.FlightService;
+import com.booking.service.UserService;
 import com.booking.utils.HibernateUtils;
 
 
@@ -36,7 +38,10 @@ public class FlightSummary extends HttpServlet {
 		request.setAttribute("selectedFlight", retrievedFlight);
 		request.getSession().setAttribute(code, selectedValues);
 		
-		request.getRequestDispatcher("flight-summary.jsp").forward(request, response);
+		HttpSession session = request.getSession();
+		
+		UserService.setMenu(session, request, response);
+		request.getRequestDispatcher("flight-summary.jsp").include(request, response);
 		
 		
 	}

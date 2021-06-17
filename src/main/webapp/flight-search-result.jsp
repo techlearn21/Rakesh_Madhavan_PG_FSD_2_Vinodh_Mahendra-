@@ -111,49 +111,6 @@ body {
 
 <body>
 	
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-	  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-	    <ul class="navbar-nav">
-	      <li class="nav-item active">
-	        <a class="nav-link" href="home.html">Home <span class="sr-only">(current)</span></a>
-	      </li>
-	      <li class="nav-item dropdown">
-	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	          User
-	        </a>
-	        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-	          <a class="dropdown-item" href="profile.html">Profile</a>
-	          <a class="dropdown-item" href="logout.html">Logout</a>
-	        </div>
-	      </li>
-	      <li class="nav-item dropdown">
-	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	          Guest
-	        </a>
-	        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-	          <a class="dropdown-item" href="register.html">Register</a>
-	          <a class="dropdown-item" href="login.html">Login</a>
-	        </div>
-	      </li>
-	      <li class="nav-item dropdown">
-	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	          Admin
-	        </a>
-	        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-	          <a class="dropdown-item" href="addflight.html">Add Flight</a>
-	          <a class="dropdown-item" href="admin-profile.html">Reset Admin Password</a>
-	        </div>
-	      </li>
-	    </ul>
-	  </div>
-	</nav>
-	
-	
-	<!--  
-		<img class="w3-image" src="./../images/plane3.jpg" alt="The Airline" style="min-width:1000px" width="1800" height="500">
-	-->
-	
-	
 	<div class="signup-form">
 		
 			<h2>Results</h2>
@@ -187,7 +144,7 @@ body {
 			        	<tr>
 				            <td>
 				              <div class="custom-control custom-radio custom-control-inline">
-				                  <input type="radio" class="custom-control-input"  name="flightradio" value=<%= searchResults.get(i).getCode() %> id=<%="customRadio" + i %>>
+				                  <input type="radio" class="custom-control-input"  name="flightradio" value=<%= searchResults.get(i).getCode() %> id=<%="customRadio" + i %> required>
 				                  <label class="custom-control-label" for=<%= "customRadio"+ i %>><%= i + 1 %></label>
 				              </div>
 				            </td>
@@ -221,7 +178,7 @@ body {
 	  <div class="form-group">
 			<div class="row">
 				<div class="col"></div>
-				<div class="col"><button type="submit" class="btn btn-primary btn-block">Book</button></div>
+				<div class="col"><button type="submit" class="btn btn-primary btn-block">Select and Proceed</button></div>
 				<div class="col"></div>
 			</div>        	
         </div>

@@ -12,15 +12,17 @@
 		<div class="collapse navbar-collapse" id="navbarNavDropdown">
 			<ul class="navbar-nav">
 				<li class="nav-item active">
-					<a class="nav-link" href="home.html">Home <span class="sr-only">(current)</span></a>
+					<a class="nav-link" href="/booking-app">Home <span class="sr-only"></span></a>
 				</li>
 				
 				<li class="nav-item dropdown"><a
-					class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Admin </a>
+					class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <%=session.getAttribute("loggedInUser") %> </a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-						<a class="dropdown-item" href="addflight.html">Add Flight</a>
-						<a class="dropdown-item" href="profile.html">Profile</a>
-						<a class="dropdown-item" href="admin-profile.html">Reset Admin Password</a> 
+						<a class="dropdown-item" href="/booking-app/doairport">Add Airport</a>
+						<a class="dropdown-item" href="/booking-app/doairline">Add Airline</a>
+						<a class="dropdown-item" href="/booking-app/doaddflight">Add Flight</a>
+						<a class="dropdown-item" href="/booking-app/doadminpass">Reset Admin Password</a>
+						<a class="dropdown-item" href="/booking-app/dologout">Logout</a> 
 					</div>
 				</li>
 			</ul>

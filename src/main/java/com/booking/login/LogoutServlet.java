@@ -43,9 +43,9 @@ public class LogoutServlet extends HttpServlet {
 		response.setContentType("text/html");
 		out.println("<h3> Logged out " + userName + "</h3>");
 		
-		System.out.println("Servlet context: " + request.getServletContext().getContextPath());
+		System.out.println("Navigating to servlet context: " + request.getServletContext().getContextPath());
 		
-		request.getRequestDispatcher("login.html").forward(request, response);
+		response.sendRedirect(request.getContextPath());
 	}
 
 }

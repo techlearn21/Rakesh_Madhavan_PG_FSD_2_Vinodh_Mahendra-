@@ -12,14 +12,14 @@
 		<div class="collapse navbar-collapse" id="navbarNavDropdown">
 			<ul class="navbar-nav">
 				<li class="nav-item active">
-					<a class="nav-link" href="home.html">Home <span class="sr-only">(current)</span></a>
+					<a class="nav-link" href="/booking-app">Home <span class="sr-only">(current)</span></a>
 				</li>
 				
 				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Guest </a>
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <%=session.getAttribute("loggedInUser") %> </a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-						<a class="dropdown-item" href="register.html">Register</a> 
-						<a class="dropdown-item" href="login.html">Login</a>
+						<a class="dropdown-item" href="/booking-app/doregister">Register</a> 
+						<a class="dropdown-item" href="/booking-app/dologin">Login</a>
 					</div>
 				</li>
 				

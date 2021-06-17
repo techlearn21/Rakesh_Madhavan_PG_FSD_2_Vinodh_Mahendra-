@@ -1,3 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@page import="com.booking.model.Airline"%>
+<%@page import="com.booking.model.Airport"%>
+<%@page import="java.util.*" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -105,43 +110,14 @@ body {
 
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-	  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-	    <ul class="navbar-nav">
-	      <li class="nav-item active">
-	        <a class="nav-link" href="home.html">Home <span class="sr-only">(current)</span></a>
-	      </li>
-	      <li class="nav-item dropdown">
-	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	          User
-	        </a>
-	        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-	          <a class="dropdown-item" href="profile.html">Profile</a>
-	          <a class="dropdown-item" href="logout.html">Logout</a>
-	        </div>
-	      </li>
-	      <li class="nav-item dropdown">
-	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	          Guest
-	        </a>
-	        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-	          <a class="dropdown-item" href="register.html">Register</a>
-	          <a class="dropdown-item" href="login.html">Login</a>
-	        </div>
-	      </li>
-	      <li class="nav-item dropdown">
-	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	          Admin
-	        </a>
-	        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-	          <a class="dropdown-item" href="addflight.html">Add Flight</a>
-	          <a class="dropdown-item" href="admin-profile.html">Reset Admin Password</a>
-	        </div>
-	      </li>
-	    </ul>
-	  </div>
-	</nav>
-	
+
+	<%
+		List<Airline> allAirlines = new ArrayList();
+		allAirlines = (List<Airline>) request.getAttribute("allAirlines");
+		
+		List<Airport> allAirports = new ArrayList();
+		allAirports = (List<Airport>) request.getAttribute("allAirports");
+	%>
 	
 	<div class="signup-form">
 			<form action="/booking-app/add-flight" method="post">
@@ -150,14 +126,93 @@ body {
 		        <div class="form-group">
 					<div class="row">
 						<div class="col"><input type="text" class="form-control" name="code" placeholder="Flight code" required="required"></div>
-						<div class="col"><input type="text" class="form-control" name="airline" placeholder="Airline" required="required"></div>
+						<div class="col">
+							<select class="form-control" name="airline" id="airline" required>
+				                <option value="" selected>Select Airline</option>
+				<%
+					if(allAirlines !=null && allAirlines.size() > 0) {
+						for (int i = 0; i < allAirlines.size(); i++) {
+					
+				%>
+				                <option value=<%= allAirlines.get(i).getCode()%>>
+				                	<%= allAirlines.get(i).getCode() + "  -  " + allAirlines.get(i).getName() %>
+				                </option>
+				<%
+						}
+					} else {
+						System.out.println("allAirlines - No results retrieved");
+				 %>
+			            <option>	-	</option>
+			            <option>	-	</option>
+			            <option>	-	</option>
+			            <option>	-	</option>
+			            <option>	-	</option>
+		         <%
+					}
+			     %>
+				              </select>
+						</div>
 					</div>        	
 		        </div>
 		        
 		        <div class="form-group">
 					<div class="row">
-						<div class="col"><input type="text" class="form-control" name="source" placeholder="Start from" required="required"></div>
-						<div class="col"><input type="text" class="form-control" name="destination" placeholder="Destination" required="required"></div>
+						<div class="col">
+						
+							<select class="form-control" name="source" required="required">
+				                <option value="" selected>Start from airport</option>
+				                <%
+					
+									allAirports = (List<Airport>) request.getAttribute("allAirports");
+									if(allAirports !=null && allAirports.size() > 0) {
+										for (int i = 0; i < allAirports.size(); i++) {
+									
+								%>
+								                <option value=<%= allAirports.get(i).getAirportCode()%>>
+								                	<%= allAirports.get(i).getAirportCode() + "  -  " + allAirports.get(i).getAirportName() %>
+								                </option>
+								<%
+										}
+									} else {
+										System.out.println("allAirports - No results retrieved");
+								 %>
+							            <option>	-	</option>
+							            <option>	-	</option>
+						         <%
+									}
+							     %>
+				                
+				              </select>
+						</div>
+						
+						
+						<div class="col">
+							<select class="form-control" name="destination" required="required">
+				                <option value="" selected>Destination airport</option>
+				                <%
+					
+									allAirports = (List<Airport>) request.getAttribute("allAirports");
+									if(allAirports !=null && allAirports.size() > 0) {
+										for (int i = 0; i < allAirports.size(); i++) {
+									
+								%>
+								                <option value=<%= allAirports.get(i).getAirportCode()%>>
+								                	<%= allAirports.get(i).getAirportCode() + "  -  " + allAirports.get(i).getAirportName() %>
+								                </option>
+								<%
+										}
+									} else {
+										System.out.println("allAirports - No results retrieved");
+								 %>
+							            <option>	-	</option>
+							            <option>	-	</option>
+						         <%
+									}
+							     %>
+				                
+				              </select>
+							
+						</div>
 					</div>        	
 		        </div>
 		        
@@ -167,6 +222,11 @@ body {
 						<div class="col"><input type="time" class="form-control" name="endtime" placeholder="End time" required="required"></div>
 						<div class="col"><input type="number" class="form-control" min="0" step="0.01" name="price" placeholder="Price" required="required"></div>
 					</div>        	
+		        </div>
+		        
+		        
+		        <div class="form-group">
+					<div class="row"> 	</div>   	
 		        </div>
 		        
 		        <div class="form-group">

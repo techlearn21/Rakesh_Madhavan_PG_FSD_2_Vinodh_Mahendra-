@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+	<class name="com.booking.model.Airport" table="AIRPORT">
+		<!-- primary key column in Users table -->
+		<id name="id" type="int">
+			<column name="id"/>
+			<generator class="identity"/>
+		</id>
+		<property name="airportCode" type="java.lang.String">
+			<column name="CODE"/>
+		</property>		
+		<property name="airportName" type="java.lang.String">
+			<column name="AIRPORTNAME"/>
+		</property>
+		<property name="city" type="java.lang.String">
+			<column name="CITY"/>
+		</property>
+		<property name="state" type="java.lang.String">
+			<column name="STATE"/>
+		</property>
+		<property name="country" type="java.lang.String">
+			<column name="COUNTRY"/>
+		</property>
+		
+	</class>
+	
+
+</hibernate-mapping>

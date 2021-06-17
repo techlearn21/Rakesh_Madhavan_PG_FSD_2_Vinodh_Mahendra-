@@ -2,16 +2,22 @@ package com.booking.admin;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.hibernate.Session;
 
+import com.booking.model.Airline;
+import com.booking.model.Airport;
 import com.booking.model.Flight;
+import com.booking.service.FlightService;
+import com.booking.service.UserService;
 import com.booking.utils.HibernateUtils;
 
 
@@ -29,7 +35,6 @@ public class AddFlightServlet extends HttpServlet {
 		String price = request.getParameter("price");
 		
 		
-		PrintWriter out = response.getWriter();
 		response.setContentType("text/html");
 		
 		Flight flight = new Flight();
@@ -42,13 +47,30 @@ public class AddFlightServlet extends HttpServlet {
 		flight.setPrice(price);
 		
 		
-		Session session = HibernateUtils.getSessionFactory().openSession();
-		session.beginTransaction();
-		session.save(flight);
-		session.getTransaction().commit();
-		session.close();
+		Session dbSession = HibernateUtils.getSessionFactory().openSession();
+		dbSession.beginTransaction();
+		dbSession.save(flight);
+		dbSession.getTransaction().commit();
+		dbSession.close();
 		
-		out.println("<h3>Flight save successful</h3>");
+		HttpSession session = request.getSession();
+		PrintWriter out = response.getWriter();
+		FlightService flightService = new FlightService();
+		
+		if (UserService.isAdmin(session, request, response)) {
+			List<Airline> airlines = flightService.getAllAirlines();
+			request.setAttribute("allAirlines", airlines);
+			
+			List<Airport> airports = flightService.getAllAirports();
+			request.setAttribute("allAirports", airports);
+			UserService.setMenu(session, request, response);
+			out.println("<h6 align='center' style='color:black;'>Flight added</h6>");
+			request.getRequestDispatcher("addflight.jsp").include(request, response);
+		} else {
+			out.println("<h6 align='center' style='color:black;'>Flight added</h6>");
+			response.sendRedirect(request.getContextPath());
+		}
+		
 	}
 	
 	public void destroy() {

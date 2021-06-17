@@ -25,5 +25,11 @@
     	<!-- hibernate has to understand Flight as an entity -->
     	<mapping resource="com/booking/model/Flight.hbm.xml"/>
     	
+    	<!-- hibernate has to understand Airport as an entity -->
+    	<mapping resource="com/booking/model/Airport.hbm.xml"/>
+    	
+    	<!-- hibernate has to understand Airline as an entity -->
+    	<mapping resource="com/booking/model/Airline.hbm.xml"/>
+    	
     </session-factory>
 </hibernate-configuration>

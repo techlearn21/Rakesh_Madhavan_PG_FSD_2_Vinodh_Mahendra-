@@ -16,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -25,6 +26,7 @@ import com.booking.model.Flight;
 import com.booking.model.SearchFlightRequest;
 import com.booking.model.User;
 import com.booking.service.FlightService;
+import com.booking.service.UserService;
 import com.booking.utils.HibernateUtils;
 
 /**
@@ -36,7 +38,7 @@ public class SearchFlightServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		System.out.println("FlightServlet: doPost");
+		System.out.println("SearchFlightServlet: doPost");
 		
 		String startPlace = request.getParameter("source");
 		String destination = request.getParameter("destination");
@@ -64,18 +66,16 @@ public class SearchFlightServlet extends HttpServlet {
 		searchRequest.setStartDate(startDate);
 		searchRequest.setReturnDate(returnDate);
 		
-		System.out.println("FlightServlet: going to call getFlights. " + searchRequest.toString());
-		
 		FlightService flightService = new FlightService();
 		List<Flight> results = flightService.getFlights(searchRequest);
 		
 		request.setAttribute("searchResults", results);
 		
-		System.out.println("Going to redirect to flight-search-result.jsp");
-		
+		HttpSession session = request.getSession();
+		session.setAttribute("searchResults", results);
+		UserService.setMenu(session, request, response);
 	    request.getRequestDispatcher("flight-search-result.jsp").include(request, response);
 	    
-		System.out.println("redirect to flight-search-result.jsp COMPLETED");        
 	}
 	
 }

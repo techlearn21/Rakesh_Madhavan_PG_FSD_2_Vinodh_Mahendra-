@@ -7,6 +7,8 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
+import com.booking.model.Airline;
+import com.booking.model.Airport;
 import com.booking.model.Flight;
 import com.booking.model.LoginUser;
 import com.booking.model.SearchFlightRequest;
@@ -54,6 +56,47 @@ public class FlightService {
 		System.out.println("Search result: " + results);
 		
 		return results;
+	}
+	
+	
+	public List<Airport> getAllAirports() {
+		List<Airport> allAirports= new ArrayList<Airport>();
+		
+		Session session = HibernateUtils.getSessionFactory().openSession();
+		session.beginTransaction();
+		Criteria criteria = session.createCriteria(Airport.class);
+		allAirports = criteria.list();
+		System.out.println("All airports Retrieved");
+		session.close();
+		
+		if(allAirports.isEmpty()) {
+			System.out.println("No results retrieved");;
+		}
+		
+		System.out.println("Search result: " + allAirports);
+		
+		return allAirports;
+	
+	}
+	
+	public List<Airline> getAllAirlines() {
+		List<Airline> allAirlines = new ArrayList<Airline>();
+		
+		Session session = HibernateUtils.getSessionFactory().openSession();
+		session.beginTransaction();
+		Criteria criteria = session.createCriteria(Airline.class);
+		allAirlines = criteria.list();
+		System.out.println("All airlines Retrieved");
+		session.close();
+		
+		if(allAirlines.isEmpty()) {
+			System.out.println("No results retrieved");;
+		}
+		
+		System.out.println("Search result: " + allAirlines);
+		
+		return allAirlines;
+	
 	}
 
 
